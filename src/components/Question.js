@@ -14,7 +14,7 @@ const Question = ({ card, onAnswer }) => {
             name="answer"
             value={option.id}
             onChange={onchangeHandler}
-            checked={card.answer == option.id}
+            checked={card.answer === option.id}
           />
           {option.text}
         </div>

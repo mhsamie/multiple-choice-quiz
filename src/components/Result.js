@@ -1,14 +1,14 @@
-const Result = ({ userScore, all, resetButton }) => {
-  const calculatePersent = (userScore / all) * 100;
+const Result = ({ all, reset, score }) => {
+  const calculatePersent = score ? (score / all) * 100 : 0;
 
   return (
     <div>
       <span>
-        {userScore} of {all}
+        {score} of {all}
       </span>
       <br />
       <span>{calculatePersent}%</span>
-      <button onClick={resetButton}>Reset</button>
+      <button onClick={reset}>Reset</button>
     </div>
   );
 };

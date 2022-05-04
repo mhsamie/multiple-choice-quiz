@@ -1,22 +1,28 @@
 import CardViewer from "./components/CardViewer";
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { quizs } from "./data/quizs";
 import Result from "./components/Result";
 function App() {
   const [current, setCurrent] = useState(0);
   const [isEnd, setIsEnd] = useState(false);
-  const [quizsState, setQuizsState] = useState(quizs);
-  const [userScore, setUserScore] = useState(0);
+  const temp = [...quizs];
+  const [quizsState, setQuizsState] = useState([...temp]);
+
   const onAnswer = (value) => {
-    quizsState[current].answer = value;
-    setQuizsState([...quizsState]);
-
-    if (quizsState[current].options[value].isCorrect) {
-      setUserScore(userScore + 1);
-    }
+    const temp = [...quizsState];
+    temp[current].answer = parseInt(value);
+    setQuizsState(temp);
   };
-
+  const calcScore = () => {
+    let score = 0;
+    quizsState.forEach((quiz) => {
+      if (quiz.answer !== undefined && quiz.options[quiz.answer].isCorrect) {
+        score++;
+      }
+    });
+    return score;
+  };
   const goback = () => {
     if (current) {
       setCurrent(current - 1);
@@ -29,21 +35,21 @@ function App() {
       setCurrent(current + 1);
     }
   };
-  const resetButton = () => {
+  const reset = () => {
     setCurrent(0);
-    setUserScore(0);
+
     setIsEnd(false);
-    setQuizsState(quizs);
+    setQuizsState([...quizs]);
   };
-  // restart funstion - pass with props
+  useEffect(() => {
+    console.log(quizsState);
+    console.log(quizs);
+    return () => {};
+  }, [quizsState]);
   return (
     <div className="App">
       {isEnd ? (
-        <Result
-          userScore={userScore}
-          all={quizsState.length}
-          resetButton={resetButton}
-        />
+        <Result score={calcScore()} all={quizsState.length} reset={reset} />
       ) : (
         <CardViewer
           card={quizsState[current]}
