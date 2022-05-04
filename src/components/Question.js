@@ -3,13 +3,13 @@ const Question = ({ card, onAnswer }) => {
     const value = e.target.value;
     onAnswer(value);
   };
+
   return (
     <div>
       <p>{card.text}</p>
       {card.options.map((option) => (
-        <>
+        <div key={option.id}>
           <input
-            key={option.id}
             type="radio"
             name="answer"
             value={option.id}
@@ -17,7 +17,7 @@ const Question = ({ card, onAnswer }) => {
             checked={card.answer == option.id}
           />
           {option.text}
-        </>
+        </div>
       ))}
     </div>
   );

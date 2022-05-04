@@ -7,11 +7,16 @@ function App() {
   const [current, setCurrent] = useState(0);
   const [isEnd, setIsEnd] = useState(false);
   const [quizsState, setQuizsState] = useState(quizs);
-
+  const [userScore, setUserScore] = useState(0);
   const onAnswer = (value) => {
     quizsState[current].answer = value;
     setQuizsState([...quizsState]);
+
+    if (quizsState[current].options[value].isCorrect) {
+      setUserScore(userScore + 1);
+    }
   };
+
   const goback = () => {
     if (current) {
       setCurrent(current - 1);
@@ -24,11 +29,21 @@ function App() {
       setCurrent(current + 1);
     }
   };
+  const resetButton = () => {
+    setCurrent(0);
+    setUserScore(0);
+    setIsEnd(false);
+    setQuizsState(quizs);
+  };
   // restart funstion - pass with props
   return (
     <div className="App">
       {isEnd ? (
-        <Result />
+        <Result
+          userScore={userScore}
+          all={quizsState.length}
+          resetButton={resetButton}
+        />
       ) : (
         <CardViewer
           card={quizsState[current]}
