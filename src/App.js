@@ -1,5 +1,5 @@
 import CardViewer from "./components/CardViewer";
-import "./App.css";
+
 import React, { useState, useEffect } from "react";
 import { quizs } from "./data/quizs";
 import Result from "./components/Result";
@@ -10,8 +10,16 @@ function App() {
   const [quizsState, setQuizsState] = useState([...temp]);
 
   const onAnswer = (value) => {
-    const temp = [...quizsState];
-    temp[current].answer = parseInt(value);
+    const temp = quizsState.map((quiz, index) => {
+      if (index === current) {
+        const copyQuiz = { ...quiz };
+        copyQuiz.answer = parseInt(value);
+        return copyQuiz;
+      } else {
+        return quiz;
+      }
+    });
+
     setQuizsState(temp);
   };
   const calcScore = () => {
@@ -47,7 +55,7 @@ function App() {
     return () => {};
   }, [quizsState]);
   return (
-    <div className="App">
+    <div className="bg-red-300 w-96 m-auto">
       {isEnd ? (
         <Result score={calcScore()} all={quizsState.length} reset={reset} />
       ) : (
