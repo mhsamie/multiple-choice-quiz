@@ -55,7 +55,7 @@ function App() {
     return () => {};
   }, [quizsState]);
   return (
-    <div className="bg-red-300 w-96 m-auto">
+    <div className=" bg-gray-100 flex relative top-5 justify-center justify-items-center rounded-lg shadow-lg items-center text-center w-96 p-5  m-auto border-gray-600">
       {isEnd ? (
         <Result score={calcScore()} all={quizsState.length} reset={reset} />
       ) : (
