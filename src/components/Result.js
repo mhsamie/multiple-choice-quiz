@@ -1,5 +1,5 @@
 const Result = ({ all, reset, score }) => {
-  const calculatePersent = score ? Math.round((score / all) * 100) : 0;
+  const calculatePersent = score ? Math.round((score / 2 / all) * 100) : 0;
   const userPlace = () => {
     if (score === 0) {
       return "not detected";
