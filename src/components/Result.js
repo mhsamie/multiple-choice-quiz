@@ -1,5 +1,5 @@
 const Result = ({ all, reset, score }) => {
-  const calculatePersent = score ? (score / all) * 100 : 0;
+  const calculatePersent = score ? Math.round((score / all) * 100) : 0;
   const userPlace = () => {
     if (score === 0) {
       return "not detected";
@@ -19,9 +19,7 @@ const Result = ({ all, reset, score }) => {
   };
   return (
     <div className="flex-col m-1">
-      <div>
-        {score} of {all}
-      </div>
+      <div>{score} of 42</div>
 
       <div>{calculatePersent}%</div>
       <div className="font-bold m-2">

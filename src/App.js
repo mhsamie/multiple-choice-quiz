@@ -26,7 +26,7 @@ function App() {
     let score = 0;
     quizsState.forEach((quiz) => {
       if (quiz.answer !== undefined && quiz.options[quiz.answer].isCorrect) {
-        score++;
+        score = score + 2;
       }
     });
     return score;
